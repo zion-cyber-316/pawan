@@ -51,7 +51,7 @@ export const WorkerAttButtons = ({status,id,statusChange})=>{
   const markworker = async(status,id)=>{
 
 
-const res = await axios.put(`http://localhost:5000/api/workerAttendance/update/${id}`,{status})
+const res = await axios.put(`https://pawan-back-end1.onrender.com/api/workerAttendance/update/${id}`,{status})
 
 if(res.data.success){
   statusChange()
@@ -122,7 +122,7 @@ export const OverTime = ({id,OT,statusChange}) => {
      const OtUpdate = async()=>{
 
     try{
-      const res = await  axios.put(`http://localhost:5000/api/workerAttendance/updateOT/${id}`,{overtime})
+      const res = await  axios.put(`https://pawan-back-end1.onrender.com/api/workerAttendance/updateOT/${id}`,{overtime})
 if(res.data.success){
   statusChange()
   console.log(OT)
