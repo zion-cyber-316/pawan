@@ -138,7 +138,7 @@ function AuthContext({ children }) {
   const navigate = useNavigate();
 
 
-  const serverLink = "http://localhost:5000"
+  const serverLink = "https://pawan-back-end1.onrender.com"
 
   useEffect(() => {
     const userVerify = async () => {
