@@ -4,12 +4,67 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 const AddLeave = () => {
-    const {user,serverLink} = useAuth()
+
+const [user,setUser]= useState('')
+
+
+    const {serverLink} = useAuth()
+
     const [leave,setLeave]= useState({
      userId :user._id
     })
 
 const navigate = useNavigate()
+
+
+useEffect(()=>{
+
+  const fetchuser = async()=>{
+    try {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          setUser(null);
+          return;
+        }
+
+        const response = await axios.get(`${serverLink}/auth/verify`, {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+
+        if (response.data.success) {
+          setUser(response.data.user);
+        } else {
+          setUser(null);
+        }
+
+      }catch(error){
+        console.log(error)
+      }
+
+
+  }
+
+  fetchuser()
+
+},[])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     const handleChange = (e)=>{
 const {name,value} = e.target
