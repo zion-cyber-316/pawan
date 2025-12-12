@@ -14,15 +14,65 @@ import axios from 'axios';
 
 
 const SideBar = () => {
-
-
-
-  const {user,serverLink} = useAuth()
+  const[user ,setUser]= useState('')
 
   const Id = user._id;
 
+
+  const {serverLink} = useAuth()
+
+  
+
     const [employee,setEmployee] = useState([])
     const[workeraccess,setWorkeraccess] = useState([])
+
+
+
+useEffect(()=>{
+
+  const fetchuser = async()=>{
+    try {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          setUser(null);
+          return;
+        }
+
+        const response = await axios.get(`${serverLink}/auth/verify`, {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
+
+        if (response.data.success) {
+          setUser(response.data.user);
+        } else {
+          setUser(null);
+        }
+
+      }catch(error){
+        console.log(error)
+      }
+
+
+  }
+
+  fetchuser()
+
+},[])
+
+
+
+
+
+
+
+
+
+
+
+
   useEffect(()=>{
 
 
@@ -150,6 +200,7 @@ setWorkeraccess(res.data.employees.workeraccess)
 }
 
 export default SideBar
+
 
 
 
